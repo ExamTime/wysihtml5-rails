@@ -9395,21 +9395,23 @@ wysihtml5.views.Textarea = wysihtml5.views.View.extend(
         })
       );
 
-      editor.on("focus:composer", function() {
+      var _setInterval = function() {
         that.bookmark = null;
         clearInterval(that.interval);
         that.interval = setInterval(function() { that._updateLinkStates(); }, 500);
-      });
+      };
 
-      editor.on("blur:composer", function() {
+      var _clearInterval = function() {
         clearInterval(that.interval);
-      });
+      };
 
-      editor.on("destroy:composer", function() {
-        clearInterval(that.interval);
-      });
+      add_observer( "focus:composer", _setInterval );
 
-      editor.on("change_view", function(currentView) {
+      add_observer( "blur:composer", _clearInterval ); // see cmt in destroy()
+
+      add_observer( "destroy:composer", _clearInterval );
+
+      add_observer( "change_view", function(currentView) {
         // Set timeout needed in order to let the blur event fire first
         setTimeout(function() {
             // Note re. Multiple editors and dynamic toolbar creation. NF
