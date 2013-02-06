@@ -8618,6 +8618,14 @@ wysihtml5.views.View = Base.extend(
       }
     });
 
+    dom.observe(element, "keydown", function(event) {
+      that.parent.fire("keypressed:composer");
+    });
+
+    dom.observe(element, "mousedown", function(event) {
+      that.parent.fire("mouseclicked:composer");
+    });
+
     this.parent.on("paste:composer", function() {
       setTimeout(function() { that.parent.fire("newword:composer"); }, 0);
     });
@@ -9719,7 +9727,6 @@ wysihtml5.views.Textarea = wysihtml5.views.View.extend(
 
         editorWrapper.style.height = '100%'; // Force editor wrapper not to overflow
 
-
         // Editor specific listener
         editor.on("aftercommand:composer", resize); // Set bold, italic, etc
         editor.on("change_view", resize); // Change wysi/source view
@@ -9732,11 +9739,12 @@ wysihtml5.views.Textarea = wysihtml5.views.View.extend(
         // Focus/Blur listeners
         // editor.on("focus", resize);
         // editor.on("blur", resize);
+        editor.on("keypressed:composer", resize);
 
         if(iframeHtml !== undefined){
           iframeBody.addEventListener('keyup', resize, false);
-          iframeBody.addEventListener("keydown", resize, false);
-          iframeBody.addEventListener("keypress", resize, false);
+          iframeBody.addEventListener('keydown', resize, false);
+          iframeBody.addEventListener('keypress', resize, false);
           // iframeBody.addEventListener('blur', resize, false);
           // iframeBody.addEventListener('focus', resize, false);
         }
