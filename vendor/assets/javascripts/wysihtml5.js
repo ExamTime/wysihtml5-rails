@@ -9730,15 +9730,15 @@ wysihtml5.views.Textarea = wysihtml5.views.View.extend(
         editor.on("paste", resize);
 
         // Focus/Blur listeners
-        editor.on("focus", resize);
-        editor.on("blur", resize);
+        // editor.on("focus", resize);
+        // editor.on("blur", resize);
 
         if(iframeHtml !== undefined){
           iframeBody.addEventListener('keyup', resize, false);
           iframeBody.addEventListener("keydown", resize, false);
           iframeBody.addEventListener("keypress", resize, false);
-          iframeBody.addEventListener('blur', resize, false);
-          iframeBody.addEventListener('focus', resize, false);
+          // iframeBody.addEventListener('blur', resize, false);
+          // iframeBody.addEventListener('focus', resize, false);
         }
 
         // Set the first size
