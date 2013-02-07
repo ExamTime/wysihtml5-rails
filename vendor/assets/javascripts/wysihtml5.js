@@ -9774,6 +9774,10 @@ wysihtml5.views.Textarea = wysihtml5.views.View.extend(
       setTimeout(setupAutoResize, 200);
 
       var resize = function(){
+        if (window.EnableSkypeFix) {
+          return false;
+        }
+
         // Get elements
         var iframe     = editor.composer.iframe;
         var iframeHtml = iframe.contentWindow.document.getElementsByTagName('html')[0];
