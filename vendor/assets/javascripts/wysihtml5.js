@@ -5789,30 +5789,16 @@ wysihtml5.quirks.countChildNodes = (function() {
   }
 
   function getWholeHeight(data, firstNode){
-
     // Text element, wrap up in a paragraph to get height.
-    var measure_divs = firstNode.getElementsByClassName("measure_text_box");
-    if (measure_divs.length === 0) {
-      var content = '<div class="measure_text_box" style="visibility:hidden"></div>';
-      firstNode.insertAdjacentHTML('beforeend', content);
-      measure_divs = firstNode.getElementsByClassName("measure_text_box");
+    if(data == "") {
+      data = "&nbsp;"
     }
+    var content = '<div>'+ data +'</div>';
+    var node = firstNode.insertAdjacentHTML('afterbegin', content);
+    var response = getHeight(firstNode.firstElementChild);
 
-    var measure_div = measure_divs[0];
-
-    // convert data to a string and remove the measure box html from the string
-    data = "" + data;
-    data = data.replace(measure_div.outerHTML, '');
-
-    // set contents of measure div to match composer
-    measure_div.innerHTML = data;
-
-    // get height
-    var response = getHeight(measure_div);
-
-    // reset to blank so we don't get additional content in our text area
-    measure_div.innerHTML = "";
-
+    // Remove element not to affect editing.
+    firstNode.removeChild(firstNode.firstElementChild);
     return response;
   }
 
