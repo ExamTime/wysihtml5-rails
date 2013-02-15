@@ -9770,12 +9770,18 @@ wysihtml5.views.Textarea = wysihtml5.views.View.extend(
         var iframeBody = iframeHtml.lastChild;
         var editorWrapper = iframe.parentNode;
 
+        iframeBody.style.height = 'auto';
+
         // 1 - Get Current height for all childNodes:
-        var rightHeight = wysihtml5.quirks.countChildNodes(iframeBody);
+        var rightHeight = Math.max(iframeBody.offsetHeight, iframeBody.clientHeight);
+
         // console.log("there are nodes: " + iframeBody.childNodes.length + " - height: " + rightHeight);
 
-        // 2 - Set Current height
-        iframe.style.height = rightHeight + 'px';
+        // 2 - Set Current height (if no text, set a min height)
+        if (rightHeight === 0) {
+          rightHeight = 10;
+        }
+        iframe.style.height = (rightHeight + 10) + 'px';
 
         editor.fire("autoresize");
       }
