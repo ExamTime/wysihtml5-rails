@@ -8682,6 +8682,24 @@ wysihtml5.views.View = Base.extend(
       }
     });
 
+    dom.observe(element, ["mouseup", "keyup"], function() {
+      var target = that.selection.getSelectedNode(true);
+      var parent = target.parentNode;
+      var link_preview_container = document.getElementById('link_preview');
+      if (parent.nodeName === "A") {
+        that.parent.fire("linkhighlighted:composer", {
+          left:   parent.offsetLeft,
+          top:    parent.offsetTop,
+          width:  parent.offsetWidth,
+          height: parent.offsetHeight,
+          url:    parent.getAttribute("href")
+        });
+      }
+      else {
+        that.parent.fire("linkunhighlighted:composer");
+      }
+    });
+
     // --------- Make sure that when pressing backspace/delete on selected images deletes the image and it's anchor ---------
     dom.observe(element, "keydown", function(event) {
       var target  = that.selection.getSelectedNode(true),
