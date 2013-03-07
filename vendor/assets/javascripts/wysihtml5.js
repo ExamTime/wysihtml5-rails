@@ -9763,11 +9763,18 @@ wysihtml5.views.Textarea = wysihtml5.views.View.extend(
         editor.on("keypressed:composer", resize);
 
         if(iframeHtml !== undefined){
-          iframeBody.addEventListener('keyup', resize, false);
-          iframeBody.addEventListener('keydown', resize, false);
-          iframeBody.addEventListener('keypress', resize, false);
-          // iframeBody.addEventListener('blur', resize, false);
-          // iframeBody.addEventListener('focus', resize, false);
+
+          // Add a fallback in case the DOMContentLoaded event isn't supported
+          if (iframeBody.addEventListener) {
+            iframeBody.addEventListener('keyup', resize, false);
+            iframeBody.addEventListener('keydown', resize, false);
+            iframeBody.addEventListener('keypress', resize, false);
+          }
+          else {
+            iframeBody.attachEvent('onkeyup', resize);
+            iframeBody.attachEvent('onkeydown', resize);
+            iframeBody.attachEvent('onkeypress', resize);
+          }
         }
 
         // Set the first size
