@@ -8353,8 +8353,8 @@ wysihtml5.views.View = Base.extend(
        */
       TEXT_FORMATTING = [
         "background-color",
-        "color", "cursor",
-        "font-family", "font-size", "font-style", "font-variant", "font-weight",
+        "cursor",
+        "font-family", "font-size", "font-style", "font-variant",
         "line-height", "letter-spacing",
         "text-align", "text-decoration", "text-indent", "text-rendering",
         "word-break", "word-wrap", "word-spacing"
