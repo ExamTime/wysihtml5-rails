@@ -9731,14 +9731,14 @@ wysihtml5.views.Textarea = wysihtml5.views.View.extend(
         // 0 - Reset styles
         if(iframeHtml !== undefined){
           iframeHtml.style.height   = "100%";
-          iframeHtml.style.width    = "99%";
+          iframeHtml.style.width    = "100%";
           iframeHtml.style.margin   = 0;
           iframeHtml.style.padding  = 0;
           iframeHtml.style.overflow = "hidden";
 
           var iframeBody = iframeHtml.lastChild;
           iframeBody.style.height   = "auto"; // https://github.com/xing/wysihtml5/issues/18#issuecomment-11202670
-          iframeBody.style.width    = "99%";
+          iframeBody.style.width    = "100%";
           iframeBody.style.margin   = 0;
           iframeBody.style.padding  = 0;
         }
