@@ -6796,7 +6796,6 @@ wysihtml5.Commands = Base.extend(
         args    = wysihtml5.lang.array(arguments).get(),
         method  = obj && obj.exec,
         result  = null;
-
     this.editor.fire("beforecommand:composer");
 
     if (method) {
@@ -6977,8 +6976,29 @@ wysihtml5.commands.bold = {
       return undef;
     }
   };
-})(wysihtml5);
-/**
+})(wysihtml5);/**
+ * document.execCommand("fontFamily") will create either inline styles (firefox, chrome) or use font tags
+ * which we don't want
+ * Instead we set a css class
+ */
+(function(wysihtml5) {
+  var undef,
+      REG_EXP = /wysiwyg-font-family-[0-9a-z\_]+/g;
+
+  wysihtml5.commands.fontFamily = {
+    exec: function(composer, command, size) {
+      return wysihtml5.commands.formatInline.exec(composer, command, "span", "wysiwyg-font-family-" + size, REG_EXP);
+    },
+
+    state: function(composer, command, size) {
+      return wysihtml5.commands.formatInline.state(composer, command, "span", "wysiwyg-font-family-" + size, REG_EXP);
+    },
+
+    value: function() {
+      return undef;
+    }
+  };
+})(wysihtml5);/**
  * document.execCommand("foreColor") will create either inline styles (firefox, chrome) or use font tags
  * which we don't want
  * Instead we set a css class
