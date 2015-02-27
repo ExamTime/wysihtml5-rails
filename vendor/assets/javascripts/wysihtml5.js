@@ -3707,7 +3707,8 @@ wysihtml5.browser = (function() {
     },
 
     hasUndoInContextMenu: function() {
-      return isGecko || isChrome || isOpera;
+      // return isGecko || isChrome || isOpera;
+      return false;
     },
 
     /**
