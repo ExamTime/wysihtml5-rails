@@ -7659,8 +7659,8 @@ wysihtml5.commands.redo = {
       MAX_HISTORY_ENTRIES = 25,
       DATA_ATTR_NODE      = "data-wysihtml5-selection-node",
       DATA_ATTR_OFFSET    = "data-wysihtml5-selection-offset",
-      UNDO_HTML           = '<span id="_wysihtml5-undo" class="_wysihtml5-temp">' + wysihtml5.INVISIBLE_SPACE + '</span>',
-      REDO_HTML           = '<span id="_wysihtml5-redo" class="_wysihtml5-temp">' + wysihtml5.INVISIBLE_SPACE + '</span>',
+      UNDO_HTML           = '<span id="_wysihtml5-undo" class="_wysihtml5-temp"></span>',
+      REDO_HTML           = '<span id="_wysihtml5-redo" class="_wysihtml5-temp"></span>',
       dom                 = wysihtml5.dom;
 
   function cleanTempElements(doc) {
@@ -9818,15 +9818,12 @@ wysihtml5.views.Textarea = wysihtml5.views.View.extend(
         iframeBody.style.height = 'auto';
 
         // 1 - Get Current height for all childNodes:
-        var rightHeight = Math.max(iframeBody.offsetHeight, iframeBody.clientHeight);
+        var rightHeight = wysihtml5.quirks.countChildNodes(iframeBody);        
 
         // console.log("there are nodes: " + iframeBody.childNodes.length + " - height: " + rightHeight);
 
-        // 2 - Set Current height (if no text, set a min height)
-        if (rightHeight === 0) {
-          rightHeight = 10;
-        }
-        iframe.style.height = (rightHeight + 10) + 'px';
+        // 2 - Set Current height
+        iframe.style.height = rightHeight + 'px';
 
         editor.fire("autoresize");
       }
