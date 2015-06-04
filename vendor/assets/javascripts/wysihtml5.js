@@ -9800,6 +9800,15 @@ wysihtml5.views.Textarea = wysihtml5.views.View.extend(
         // Set the first size
         editor.on("load", resize);
         resize();
+
+        wysihtml5.commands.resize = {
+          exec: function(composer, command, html) {
+            resize();
+          },
+          state: function() {
+            return false;
+          }
+        };
       };
 
       setTimeout(setupAutoResize, 200);
