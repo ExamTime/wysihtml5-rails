@@ -2972,7 +2972,7 @@ rangy.createModule("DomUtil", function(api, module) {
             if (implementsControlRange && implementsDocSelection && sel.docSelection.type == CONTROL) {
                 updateControlSelection(sel);
             } else {
-                sel._ranges.length = sel.rangeCount = sel.nativeSelection.rangeCount;
+                sel._ranges.length = sel.rangeCount = (sel.nativeSelection ? sel.nativeSelection.rangeCount : 0);
                 if (sel.rangeCount) {
                     for (var i = 0, len = sel.rangeCount; i < len; ++i) {
                         sel._ranges[i] = new api.WrappedRange(sel.nativeSelection.getRangeAt(i));
@@ -9800,7 +9800,7 @@ wysihtml5.views.Textarea = wysihtml5.views.View.extend(
         // Set the first size
         editor.on("load", resize);
         resize();
-      }
+      };
 
       setTimeout(setupAutoResize, 200);
 
@@ -9818,7 +9818,7 @@ wysihtml5.views.Textarea = wysihtml5.views.View.extend(
         iframeBody.style.height = 'auto';
 
         // 1 - Get Current height for all childNodes:
-        var rightHeight = wysihtml5.quirks.countChildNodes(iframeBody);        
+        var rightHeight = wysihtml5.quirks.countChildNodes(iframeBody);
 
         // console.log("there are nodes: " + iframeBody.childNodes.length + " - height: " + rightHeight);
 
@@ -9826,14 +9826,14 @@ wysihtml5.views.Textarea = wysihtml5.views.View.extend(
         iframe.style.height = rightHeight + 'px';
 
         editor.fire("autoresize");
-      }
+      },
 
-      var resizeOnDelete = function(event){
+      resizeOnDelete = function(event){
         var key = event.keyCode || event.charCode;
         if( key == 8 || key == 46 ){ // Delete or Backspace
           resize();
         }
-      }
+      };
 
     },
 
