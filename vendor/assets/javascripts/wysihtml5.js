@@ -9820,6 +9820,9 @@ wysihtml5.views.Textarea = wysihtml5.views.View.extend(
 
         // Get elements
         var iframe     = editor.composer.iframe;
+        if (typeof iframe.contentWindow === 'undefined' || iframe.contentWindow == null) {
+          return false;
+        }
         var iframeHtml = iframe.contentWindow.document.getElementsByTagName('html')[0];
         var iframeBody = iframeHtml.lastChild;
         var editorWrapper = iframe.parentNode;
