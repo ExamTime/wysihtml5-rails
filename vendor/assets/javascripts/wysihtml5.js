@@ -9827,6 +9827,7 @@ wysihtml5.views.Textarea = wysihtml5.views.View.extend(
         var iframeBody = iframeHtml.lastChild;
         var editorWrapper = iframe.parentNode;
 
+        // Set height to auto to measure contents
         iframeBody.style.height = 'auto';
 
         // 1 - Get Current height for all childNodes:
@@ -9838,6 +9839,10 @@ wysihtml5.views.Textarea = wysihtml5.views.View.extend(
         iframe.style.height = rightHeight + 'px';
 
         editor.fire("autoresize");
+
+        // Set to 100% to fill container
+        iframeBody.style.height = '100%';
+
       },
 
       resizeOnDelete = function(event){
