@@ -9745,6 +9745,9 @@ wysihtml5.views.Textarea = wysihtml5.views.View.extend(
       var setupAutoResize = function(){
         // Get elements
         var iframe     = editor.composer.iframe;
+        if (typeof iframe.contentWindow === 'undefined' || iframe.contentWindow === null) {
+          return;
+        }
         var iframeHtml = iframe.contentWindow.document.getElementsByTagName('html')[0];
         var editorWrapper = iframe.parentNode;
 
