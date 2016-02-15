@@ -7440,7 +7440,37 @@ wysihtml5.commands.bold = {
       return imagesInSelection[0];
     }
   };
-})(wysihtml5);(function(wysihtml5) {
+})(wysihtml5);
+(function(wysihtml5) {
+  var NODE_NAME = "INPUT";
+
+  wysihtml5.commands.insertCheckbox = {
+    /**
+     * Inserts a checkbox
+     * If selection is already an image link, it removes it
+     *
+     * @example
+     *    wysihtml5.commands.insertCheckbox.exec(composer, "insertCheckbox")
+     */
+    exec: function(composer, command) {
+      var doc     = composer.doc,
+          checkbox   = this.state(composer);
+
+      checkbox = doc.createElement(NODE_NAME);
+      checkbox.setAttribute("type", "checkbox");
+      composer.selection.insertNode(checkbox);
+      this.setAfter(checkbox);
+    },
+
+    state: function(composer) {
+      return false;
+    }
+  };
+})(wysihtml5);
+
+
+
+(function(wysihtml5) {
   var LINE_BREAK = "<br>" + (wysihtml5.browser.needsSpaceAfterLineBreak() ? " " : "");
 
   wysihtml5.commands.insertLineBreak = {
