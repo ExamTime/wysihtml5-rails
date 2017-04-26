@@ -31,7 +31,8 @@ var wysihtml5 = {
   ENTER_KEY:      13,
   ESCAPE_KEY:     27,
   SPACE_KEY:      32,
-  DELETE_KEY:     46
+  DELETE_KEY:     46,
+  TAB_KEY:        9
 };/**
  * @license Rangy, a cross-browser JavaScript range and selection library
  * http://code.google.com/p/rangy/
@@ -8775,6 +8776,14 @@ wysihtml5.views.View = Base.extend(
         target.setAttribute("title", title);
       }
     });
+
+    dom.observe(element, "keydown", function(event) {
+      // TAB key handling
+      if (that.config.handleTabKey && event.keyCode === wysihtml5.TAB_KEY) {
+        event.preventDefault();
+        that.commands.exec("insertHTML", "&emsp;");
+      }
+    });
   };
 })(wysihtml5);/**
  * Class that takes care that the value of the composer and the textarea is always in sync
@@ -9634,7 +9643,9 @@ wysihtml5.views.Textarea = wysihtml5.views.View.extend(
     // Whether the rich text editor should be rendered on touch devices (wysihtml5 >= 0.3.0 comes with basic support for iOS 5)
     supportTouchDevices:  true,
     // Whether senseless <span> elements (empty or without attributes) should be removed/replaced with their content
-    cleanUp:              true
+    cleanUp:              true,
+    // Tab key inserts tab into text
+    handleTabKey:         false
   };
 
   wysihtml5.Editor = wysihtml5.lang.Dispatcher.extend(
